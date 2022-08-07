@@ -21,6 +21,7 @@ include_directories(${APUE_ROOT}/LinuxTerminal)
 include_directories(${APUE_ROOT}/LinuxThread)
 include_directories(${APUE_ROOT}/LinuxTime)
 include_directories(${APUE_ROOT}/LinuxTimer)
+include_directories(${APUE_ROOT}/LinuxConfig)
 
 aux_source_directory(${APUE_ROOT}/LinuxDir              LinuxDir)
 aux_source_directory(${APUE_ROOT}/LinuxEpoll            LinuxEpoll)
