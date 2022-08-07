@@ -16,7 +16,9 @@
 extern "C" {
 #endif
 
-#ifdef OS_LINUX_
+#define TEST_OPEN
+#define OS_LINUX
+#ifdef OS_LINUX
 #include <poll.h>
 #include <time.h>
 #include <fcntl.h>
@@ -42,6 +44,25 @@ extern "C" {
 #include <unistd.h>
 #include <stdlib.h>
 #include <stdint.h>
+
+#ifdef  __cplusplus
+#define Null    0
+#else
+#define Null    ((void *)0)
+#endif
+
+typedef void               Void;
+typedef char               S8;
+typedef short              S16;
+typedef int                S32;
+typedef long long          S64;
+typedef unsigned char      U8;
+typedef unsigned short     U16;
+typedef unsigned int       U32;
+typedef unsigned long long U64;
+typedef float              Float;
+typedef double             Double;
+typedef unsigned char      Bool;
 
 
 #ifdef __cplusplus
