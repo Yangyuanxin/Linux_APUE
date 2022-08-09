@@ -64,6 +64,12 @@ Hello LinuxAPUE
 root@100ask:~/workspace/Linux_APUE/build#
 ```
 
+##### 1.5、内存泄露测试
+
+```shell
+valgrind --tool=memcheck --leak-check=yes --show-reachable=yes ./a.out
+```
+
 #### 2、参与贡献
 
 1. Fork 本仓库
