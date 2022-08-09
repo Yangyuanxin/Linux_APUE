@@ -32,6 +32,7 @@ S32  ThreadJohin(Thread_t Thread, Void **Ret)
 }
 
 #ifdef TEST_OPEN
+Thread_t Id2;
 static Void *ThreadCallBack(Void *Arg)
 {
     (Void)Arg;
@@ -47,20 +48,51 @@ static Void *ThreadCallBack(Void *Arg)
     return Null;
 }
 
+static Void *ThreadCallBack1(Void *Arg)
+{
+    (Void)Arg;
+    S32 Counter = 0;
+    while(1)
+    {
+        printf("Hello Thread!\n");
+        usleep(1000 * 100);
+        Counter++;
+    }
+    return Null;
+}
+
 
 S32 ThreadTest(Void)
 {
     S32 Ret ;
-    Thread_t Id;
+    Thread_t Id1;
     
-    Ret = ThreadCreate(&Id, Null, ThreadCallBack, Null);
+    Ret = ThreadCreate(&Id1, Null, ThreadCallBack, Null);
     if(0 != Ret)
     {
         printf("ThreadCreate fail:%d!", Ret);
         goto ErrorHandler;
     }
     
-    Ret = ThreadJohin(Id, Null);
+    Ret = ThreadCreate(&Id2, Null, ThreadCallBack1, Null);
+    if(0 != Ret)
+    {
+        printf("ThreadCreate fail:%d!", Ret);
+        goto ErrorHandler;
+    }
+    
+    Ret = ThreadJohin(Id1, Null);
+    if(0 != Ret)
+    {
+        printf("ThreadJohin fail:%d!", Ret);
+        goto ErrorHandler;
+    }
+    
+    printf("Cancel ThreadCallBack1\n");
+    ThreadCancel(Id2);
+    printf("Cancel ThreadCallBack1 End\n");
+    
+    Ret = ThreadJohin(Id2, Null);
     if(0 != Ret)
     {
         printf("ThreadJohin fail:%d!", Ret);
