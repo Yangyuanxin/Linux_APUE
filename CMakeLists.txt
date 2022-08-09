@@ -71,5 +71,5 @@ set(APP_SRCS
 )
 
 add_compile_options(-std=gnu99 -Wall -O3 -g -Wno-discarded-qualifiers -Wmaybe-uninitialized)
-add_executable(a.out ${APP_SRCS} ${ACDAZZLE_SRCS})
+add_executable(a.out ${APP_SRCS})
 target_link_libraries(a.out pthread rt)
