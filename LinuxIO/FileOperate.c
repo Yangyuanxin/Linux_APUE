@@ -36,19 +36,28 @@ S32 FileIsExist(const S8 *Path)
     return access(Path, F_OK);
 }
 
-U64 GetFileSize(const S8 *Path)
+S64 GetFileSize(const S8 *Path)
 {
     struct stat FileState;
     
     if(0 != FileIsExist(Path))
         return 0;
     
-    stat(Path, &FileState);
+    if(stat(Path, &FileState) < 0)
+    {
+        printf("%s stat error: %s\n", Path, strerror(errno));
+        return -1;
+    }
     
     if(FileState.st_size < 0)
-        return 0;
+        return -2;
     
     return FileState.st_size;
+}
+
+S32 FileReName(const S8 *OldFile, const S8 *NewFile)
+{
+    return rename(OldFile, NewFile);
 }
 
 S32 FileUnlink(const S8 *Path)

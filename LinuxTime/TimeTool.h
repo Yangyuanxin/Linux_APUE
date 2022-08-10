@@ -19,8 +19,11 @@ extern "C" {
 
 typedef time_t TimeTool_t;
 typedef struct tm TimeToolTm_t;
+typedef struct timeval TimeToolTimeVal_t;
 
+S32 TimeSleepMs(U64 Ms);
 TimeTool_t GetTime(TimeTool_t *Time);
+S8 *GetFormatTimeStr(S8 *Str, S32 Len);
 S8 *GetTimeFixedFormatOutPut(const TimeTool_t *Time, S8 *Buf);
 TimeToolTm_t *GetLocalTime(const TimeTool_t *TimeVal, TimeToolTm_t *Result);
 
