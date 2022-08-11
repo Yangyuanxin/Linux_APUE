@@ -29,6 +29,7 @@ extern "C" {
 #include <pthread.h>
 #include <sys/ipc.h>
 #include <sys/msg.h>
+#include <sys/vfs.h>
 #include <sys/time.h>
 #include <sys/stat.h>
 #include <sys/types.h>
@@ -64,6 +65,9 @@ typedef unsigned long long U64;
 typedef float              Float;
 typedef double             Double;
 typedef unsigned char      Bool;
+
+#define True 1
+#define False 0
 
 
 #ifdef __cplusplus
