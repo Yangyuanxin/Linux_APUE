@@ -23,6 +23,7 @@ extern "C" {
 #include <time.h>
 #include <fcntl.h>
 #include <errno.h>
+#include <signal.h>
 #include <mqueue.h>
 #include <dirent.h>
 #include <termios.h>
