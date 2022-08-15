@@ -2,6 +2,7 @@
 #include "Signal.h"
 #include "Thread.h"
 #include "PollFds.h"
+#include "RunExec.h"
 #include "TimeTool.h"
 #include "DirOperate.h"
 #include "FileOperate.h"
@@ -12,6 +13,7 @@ int main(int argc, char **argv)
     TimerTest();
     SignalTest();
     ThreadTest();
+    RunExecTest();
     PollFdsTest();
     TimeToolTest();
     DirOperateTest();

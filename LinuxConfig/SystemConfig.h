@@ -32,6 +32,7 @@ extern "C" {
 #include <sys/msg.h>
 #include <sys/vfs.h>
 #include <sys/time.h>
+#include <sys/wait.h>
 #include <sys/stat.h>
 #include <sys/types.h>
 #include <sys/ioctl.h>
