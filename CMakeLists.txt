@@ -22,6 +22,7 @@ include_directories(${APUE_ROOT}/LinuxThread)
 include_directories(${APUE_ROOT}/LinuxTime)
 include_directories(${APUE_ROOT}/LinuxTimer)
 include_directories(${APUE_ROOT}/LinuxConfig)
+include_directories(${APUE_ROOT}/LinuxMutex)
 
 aux_source_directory(${APUE_ROOT}/LinuxDir              LinuxDir)
 aux_source_directory(${APUE_ROOT}/LinuxEpoll            LinuxEpoll)
@@ -42,6 +43,7 @@ aux_source_directory(${APUE_ROOT}/LinuxTerminal         LinuxTerminal)
 aux_source_directory(${APUE_ROOT}/LinuxThread           LinuxThread)
 aux_source_directory(${APUE_ROOT}/LinuxTime             LinuxTime)
 aux_source_directory(${APUE_ROOT}/LinuxTimer            LinuxTimer)
+aux_source_directory(${APUE_ROOT}/LinuxMutex            LinuxMutex)
 
 set(APUE_SRC
     ${LinuxDir} 
@@ -63,6 +65,7 @@ set(APUE_SRC
     ${LinuxThread} 
     ${LinuxTime} 
     ${LinuxTimer} 
+    ${LinuxMutex}
 )
 
 set(APP_SRCS 

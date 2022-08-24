@@ -1,4 +1,5 @@
 #include "TCP.h"
+#include "Mutex.h"
 #include "Timer.h"
 #include "Signal.h"
 #include "Thread.h"
@@ -12,6 +13,7 @@ int main(int argc, char **argv)
 {
     printf("Hello LinuxAPUE\n");
     TCPTest();
+    MutexTest();
     TimerTest();
     SignalTest();
     ThreadTest();

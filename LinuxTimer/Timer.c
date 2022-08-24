@@ -11,7 +11,6 @@
 ****************************************************************************/
 #include "Timer.h"
 
-
 Void TimerSet(S32 Sec, Void (*Cb)(S32 Sig))
 {
     signal(SIGALRM , Cb);
