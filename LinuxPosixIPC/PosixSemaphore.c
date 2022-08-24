@@ -1,19 +1,19 @@
 /****************************************************************************
   Copyright(C)    2022, morixinguan@vip.qq.com
-  File name :     Terminal.c
+  File name :     PosixSemaphore.c
   Author :        Yangyuanxin
   Version:        1.0
-  Description:    信号量相关接口及测试程序实现
+  Description:    Posix信号量相关接口及测试程序实现
   Other:
   Mode History:
           <author>        <time>      <version>   <desc>
           Yangyuanxin    2022-8-24     V1.0.0.0
 ****************************************************************************/
-#include "Semaphore.h"
+#include "PosixSemaphore.h"
 
-Void *SemaphoreCreate(Void)
+Void *PosixSemaphoreCreate(Void)
 {
-    Semaphore_t *Sem = (Semaphore_t *)malloc(sizeof(Semaphore_t));
+    PosixSemaphore_t *Sem = (PosixSemaphore_t *)malloc(sizeof(PosixSemaphore_t));
     if(Null == Sem)
         return Null;
     
@@ -27,9 +27,9 @@ Void *SemaphoreCreate(Void)
     return Sem;
 }
 
-S32 SemaphoreDestroy(Void *Sem)
+S32 PosixSemaphoreDestroy(Void *Sem)
 {
-    if(0 != sem_destroy((Semaphore_t *)Sem))
+    if(0 != sem_destroy((PosixSemaphore_t *)Sem))
     {
         printf("sem_destroy failed!\n");
         free(Sem);
@@ -42,12 +42,12 @@ S32 SemaphoreDestroy(Void *Sem)
     return 0;
 }
 
-S32 SemaphorePost(Void *Sem)
+S32 PosixSemaphorePost(Void *Sem)
 {
-    return sem_post((Semaphore_t *)Sem);
+    return sem_post((PosixSemaphore_t *)Sem);
 }
 
-S32 SemaphoreWait(Void *Sem, U32 TimeoutMs)
+S32 PosixSemaphoreWait(Void *Sem, U32 TimeoutMs)
 {
     S32 S;
     struct timespec Ts;
@@ -80,12 +80,12 @@ S32 SemaphoreWait(Void *Sem, U32 TimeoutMs)
 }
 
 #ifdef TEST_OPEN
-Semaphore_t *Sem = Null;
+PosixSemaphore_t *Sem = Null;
 
 static Void *FunCall1(Void *Arg)
 {
     (Void)Arg;
-    if(0 != SemaphorePost(Sem))
+    if(0 != PosixSemaphorePost(Sem))
     {
         printf("SemaphorePost failed!\n");
         return Null;
@@ -102,7 +102,7 @@ static Void *FunCall2(Void *Arg)
     for(;;)
     {
         printf("FunCall2 block wait sem!\n");
-        Status = SemaphoreWait(Sem, 0);
+        Status = PosixSemaphoreWait(Sem, 0);
         if(0 == Status)
         {
             printf("Reciver Sem ok!!!\n");
@@ -112,12 +112,12 @@ static Void *FunCall2(Void *Arg)
     return Null;
 }
 
-S32 SemaphoreTest(Void)
+S32 PosixSemaphoreTest(Void)
 {
     S32 Ret = 0;
     pthread_t Id1, Id2;
     
-    Sem = SemaphoreCreate();
+    Sem = PosixSemaphoreCreate();
     if(Null == Sem)
     {
         printf("SemaphoreCreate failed!\n");
@@ -129,13 +129,13 @@ S32 SemaphoreTest(Void)
     pthread_join(Id1, Null);
     pthread_join(Id2, Null);
     
-    Ret = SemaphoreDestroy(Sem);
+    Ret = PosixSemaphoreDestroy(Sem);
     if(Ret != 0)
     {
         printf("SemaphoreDestroy failed!\n");
         return -1;
     }
-    printf("Semaphore Test Success!");
+    printf("PosixSemaphore Test Success!\n");
     return 0;
 }
 #endif
