@@ -54,6 +54,6 @@ S32 TcpRecv(S32 Fd, S8 *Buff, S32 Len)
 #ifdef TEST_OPEN
 S32 TCPTest(Void)
 {
-  
+  return 0;
 }
 #endif
