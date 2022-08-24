@@ -34,6 +34,7 @@ extern "C" {
 #include <sys/time.h>
 #include <sys/wait.h>
 #include <sys/stat.h>
+#include <semaphore.h>
 #include <sys/types.h>
 #include <sys/ioctl.h>
 #include <linux/i2c.h>
