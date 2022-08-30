@@ -15,7 +15,14 @@
 #ifdef __cplusplus
 extern "C" {
 #endif
-#include "SystemInfo.h"
+#include "DirOperate.h"
+#include "SystemConfig.h"
+
+typedef struct sysinfo SystemInfo_t;
+
+S64 GetSystemRunTime(Void);
+S32 GetMemSize(U64 *Total, U64 *Free);
+S32 GetDiskInfo(const S8 *Path, Double *Available, Double *Total);
 
 
 #ifdef TEST_OPEN

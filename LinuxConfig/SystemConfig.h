@@ -40,6 +40,7 @@ extern "C" {
 #include <linux/i2c.h>
 #include <arpa/inet.h>
 #include <sys/socket.h>
+#include <sys/sysinfo.h>
 #include <linux/serial.h>
 #include <linux/i2c-dev.h>
 #endif

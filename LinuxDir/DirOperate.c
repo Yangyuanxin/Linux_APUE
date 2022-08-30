@@ -49,96 +49,98 @@ Bool IsDirExist(const S8 *Path)
     return False;
 }
 
-S32 GetDiskSize(const S8 *Path, U64 *DiskSize)
+S32 ScanListFiles(S8 *Path, S8 *Suffix, Void (*CallBack)(S8 *))
 {
-    if(IsDirExist(Path))
-    {
-        DirFs_t DiskInfo;
-        StatFs(Path, &DiskInfo);
-        *DiskSize = DiskInfo.f_bsize * DiskInfo.f_bavail;
-        return 0;
-    }
-    else
-    {
-        *DiskSize = 0;
-        return -1;
-    }
-}
-
-S32 GetDiskInfo(const S8 *Path, Double *Available, Double *Total)
-{
-    U64 BlockSize;
-    U64 TotalSize;
-    U64 AvailableSize;
-    DirFs_t DiskInfo;
+    S32 Index = 0;
+    S32 Counter = 0;
+    S32 FileNum = 0;
+    S8  BufSuffix[50];
+    DirGet_t **FileList;
     
-    if(IsDirExist(Path))
-        StatFs(Path, &DiskInfo);
-    else
-        return -1 ;
+    if(Null == Path || Null == CallBack)
+    {
+        printf("Path or CallBack is Null!\n");
+        goto ErrorHandler;
+    }
+    
+    if(Null != Suffix)
+    {
+        memset(BufSuffix, 0, sizeof(BufSuffix));
+        strncpy(BufSuffix, Suffix, strlen(Suffix));
+        BufSuffix[strlen(Suffix)] = '\0';
+    }
+    
+    FileNum = scandir(Path, &FileList, 0, alphasort);
+    if(FileNum < 0)
+    {
+        printf("scandir fail!\n");
+        goto ErrorHandler;
+    }
+    
+    for(Index = 0; Index < FileNum; Index++)
+    {
+        if (0 == strcmp(FileList[Index]->d_name, ".") || \
+            0 == strcmp(FileList[Index]->d_name, ".."))  \
+        {
+            /*此处也需要释放内存,否则会造成内存泄漏*/
+            free(FileList[Index]);
+            FileList[Index] = Null;
+            continue;
+        }
         
-    BlockSize = DiskInfo.f_bsize;                   // 每个block里包含的字节数
-    TotalSize = BlockSize * DiskInfo.f_blocks;      // 总的字节数，f_blocks为block的数目
-    AvailableSize = DiskInfo.f_bavail * BlockSize;  // 可用空间大小
-    *Available = AvailableSize ;
-    *Total = TotalSize ;
-    
-    return 0 ;
-}
-
-#ifdef TEST_OPEN
-S32 DirOperateTest(Void)
-{
-    S8 AvUnit[10];
-    S8 ToUnit[10];
-    S32 Ret = -1;
-    U64 DiskSize;
-    Double TotalSize = 0.0;
-    Double AvailableSize = 0.0;
-    
-    memset(AvUnit, 0,sizeof(AvUnit));
-    memset(ToUnit, 0,sizeof(ToUnit));
-    
-    Ret = GetDiskSize("./", &DiskSize);
-    if(Ret < 0)
-    {
-        printf("GetDiskSize fail!\n");
-        goto ErrorHandler;
+        if(Null == Suffix)
+        {
+            CallBack(FileList[Index]->d_name);
+            Counter++;
+        }
+        else
+        {
+            if(strstr(FileList[Index]->d_name, BufSuffix))
+            {
+                CallBack(FileList[Index]->d_name);
+                Counter++;
+            }
+        }
+        
+        free(FileList[Index]);
+        FileList[Index] = Null;
     }
     
-    Ret = GetDiskInfo("./", &AvailableSize, &TotalSize);
-    if(Ret < 0)
-    {
-        printf("GetDiskInfo fail!\n");
-        goto ErrorHandler;
-    }
+    free(FileList);
+    FileList = Null;
     
-    AvailableSize /= 1024 ;
-    if(AvailableSize > 1024){
-        AvailableSize /= 1024 ;
-        snprintf(AvUnit, sizeof(AvUnit), "%s", "M");
-    }
-    if(AvailableSize > 1024){
-        AvailableSize /= 1024 ;
-        snprintf(AvUnit, sizeof(AvUnit), "%s", "G");
-    }
-    TotalSize /= 1024 ;
-    if(TotalSize > 1024){
-        TotalSize /= 1024 ;
-        snprintf(ToUnit, sizeof(ToUnit), "%s", "M");
-    }
-    if(TotalSize > 1024){
-        TotalSize /= 1024 ;
-        snprintf(ToUnit, sizeof(ToUnit), "%s", "G");
-    }
-    
-    printf("Current DiskSize:%lld\n", DiskSize);
-    printf("AvailableSize:%.2lf%s  TotalSize:%.2lf%s\n", AvailableSize, AvUnit, TotalSize, ToUnit);
-    
-    printf("DirOperate Test Success!\n");
-    return 0;
+    return Counter;
     
 ErrorHandler:
     return -1;
+}
+
+#ifdef TEST_OPEN
+Void CallBack(S8 *Name)
+{
+    printf("Name: %s\n", Name);
+}
+
+S32 DirOperateTest(Void)
+{
+    S32 Counter = 0;
+    
+    Counter = ScanListFiles(".", Null, CallBack);
+    if(Counter < 0)
+    {
+        printf("ScanListFiles fail!\n");
+        return -1;
+    }
+    printf("Have't Suffix Counter = %d\n", Counter);
+    
+    Counter = ScanListFiles(".", ".txt", CallBack);
+    if(Counter < 0)
+    {
+        printf("ScanListFiles fail!\n");
+        return -1;
+    }
+    printf("Have Suffix Counter = %d\n", Counter);
+    printf("DirOperate Test Success!\n");
+    return 0;
 }
 #endif

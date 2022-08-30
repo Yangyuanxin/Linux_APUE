@@ -26,8 +26,6 @@ S32 CloseDir(Dir_t *Dirp);
 DirGet_t *ReadDir(Dir_t *Dirp);
 S32 StatFs(const S8 *Path, DirFs_t *Attr);
 Bool IsDirExist(const S8 *Path);
-S32 GetDiskSize(const S8 *Path, U64 *DiskSize);
-S32 GetDiskInfo(const S8 *Path, Double *Available, Double *Total);
 
 #ifdef TEST_OPEN
 S32 DirOperateTest(Void);

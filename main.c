@@ -5,11 +5,12 @@
 #include "Thread.h"
 #include "PollFds.h"
 #include "RunExec.h"
-#include "TimeTool.h"
-#include "DirOperate.h"
-#include "FileOperate.h"
 #include "PosixMsg.h"
 #include "PosixShm.h"
+#include "TimeTool.h"
+#include "DirOperate.h"
+#include "SystemInfo.h"
+#include "FileOperate.h"
 #include "PosixSemaphore.h"
 
 int main(int argc, char **argv)
@@ -24,6 +25,7 @@ int main(int argc, char **argv)
     PollFdsTest();
     TimeToolTest();
     DirOperateTest();
+    SystemInfoTest();
     FileOperateTest();
     PosixSemaphoreTest();
     return 0;
