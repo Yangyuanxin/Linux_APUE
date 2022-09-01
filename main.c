@@ -10,6 +10,7 @@
 #include "TimeTool.h"
 #include "DirOperate.h"
 #include "SystemInfo.h"
+#include "SystemVMsg.h"
 #include "FileOperate.h"
 #include "PosixSemaphore.h"
 
@@ -26,6 +27,7 @@ int main(int argc, char **argv)
     TimeToolTest();
     DirOperateTest();
     SystemInfoTest();
+    SystemVMsgTest();
     FileOperateTest();
     PosixSemaphoreTest();
     return 0;

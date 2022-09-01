@@ -23,6 +23,19 @@ S32 TimeSleepMs(U64 Ms)
     return select(0, NULL, NULL, NULL, &Tv);
 }
 
+S32 TimeSleepUs(S32 Us)
+{
+    TimeToolTimeVal_t Tv;
+    Tv.tv_sec =     Us / 1000000;
+    Tv.tv_usec =    Us % 1000000;
+
+    S32 ret = select(0, NULL, NULL, NULL, &Tv);
+    if(0 != ret) 
+        return -1;
+
+    return 0;
+}
+
 S8 *GetFormatTimeStr(S8 *Str, S32 Len)
 {
     S8 DataFmt[20];
