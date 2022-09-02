@@ -29,6 +29,7 @@ extern "C" {
 #include <termios.h>
 #include <pthread.h>
 #include <sys/ipc.h>
+#include <sys/shm.h>
 #include <sys/msg.h>
 #include <sys/vfs.h>
 #include <sys/time.h>
