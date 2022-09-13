@@ -11,6 +11,25 @@
 ****************************************************************************/
 #include "Terminal.h"
 
+S32 TerminalOpen(TerminalAttr_t *Attr)
+{
+    return 0;
+}
+
+S32 TerminalClose(S32 Fd)
+{
+    return close(Fd);
+}
+
+S32 TerminalWrite(S32 Fd, S8 *Buff, S32 Len)
+{
+    return write(Fd, Buff, Len);
+}
+
+S32 TerminalRead(S32 Fd, S8 *Buff, S32 Len)
+{
+    return read(Fd, Buff, Len);
+}
 
 #ifdef TEST_OPEN
 
