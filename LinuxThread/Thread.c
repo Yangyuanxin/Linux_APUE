@@ -8,15 +8,16 @@
   Mode History:
           <author>        <time>      <version>   <desc>
           Yangyuanxin    2022-8-9      V1.0.0.0
+          Yangyuanxin    2022-8-20     V1.0.0.1   增加线程分离接口
 ****************************************************************************/
 #include "Thread.h"
 
-S32  ThreadCreate(Thread_t *Thread, const ThreadAttr_t *Attr, Void *(*ThreadFunc) (Void *), Void *Arg)
+S32 ThreadCreate(Thread_t *Thread, const ThreadAttr_t *Attr, Void *(*ThreadFunc) (Void *), Void *Arg)
 {
     return pthread_create(Thread, Attr, ThreadFunc, Arg);
 }
 
-S32  ThreadCancel(Thread_t Thread)
+S32 ThreadCancel(Thread_t Thread)
 {
     return pthread_cancel(Thread);
 }
@@ -26,9 +27,14 @@ Void ThreadExit(Void *Ret)
     pthread_exit(Ret);
 }
 
-S32  ThreadJohin(Thread_t Thread, Void **Ret)
+S32 ThreadJohin(Thread_t Thread, Void **Ret)
 {
     return pthread_join(Thread, Ret);
+}
+
+S32 ThreadDetach(Thread_t Thread)
+{
+    return pthread_detach(Thread);
 }
 
 #ifdef TEST_OPEN
