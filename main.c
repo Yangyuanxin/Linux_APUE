@@ -5,6 +5,7 @@
 #include "Thread.h"
 #include "PollFds.h"
 #include "RunExec.h"
+#include "Terminal.h"
 #include "PosixMsg.h"
 #include "PosixShm.h"
 #include "TimeTool.h"
@@ -25,10 +26,12 @@ int main(int argc, char **argv)
     RunExecTest();
     PollFdsTest();
     TimeToolTest();
+    TerminalTest();
     DirOperateTest();
     SystemInfoTest();
     SystemVMsgTest();
     FileOperateTest();
     PosixSemaphoreTest();
+    
     return 0;
 }

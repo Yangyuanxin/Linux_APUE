@@ -8,6 +8,7 @@
   Mode History:
           <author>        <time>      <version>   <desc>
           Yangyuanxin    2022-8-24     V1.0.0.0
+          Yangyuanxin    2022-9-20     V1.0.0.1   增加设置属性、串口终端操作API
 ****************************************************************************/
 #ifndef _TERMINAL_H_
 #define _TERMINAL_H_
