@@ -13,21 +13,21 @@
 
 S32 SystemVShareMemOpen(SystemVShareMemKey_t Key, S32 MemSize)
 {
-	S32 Fd = -1;
-	
-	Fd = shmget(Key, MemSize, IPC_CREAT | 0600);
-	if(Fd < 0)
-	{
-		printf("shmget fail!\n");
-		return -1;
-	}
-	
-	return Fd;
+    S32 Fd = -1;
+    
+    Fd = shmget(Key, MemSize, IPC_CREAT | 0600);
+    if(Fd < 0)
+    {
+        printf("shmget fail!\n");
+        return -1;
+    }
+    
+    return Fd;
 }
 
 S32 SystemVShareMemClose(S32 Fd)
 {
-	return shmctl(Fd, IPC_RMID, 0);
+    return shmctl(Fd, IPC_RMID, 0);
 }
 
 
