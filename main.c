@@ -26,12 +26,13 @@ int main(int argc, char **argv)
     RunExecTest();
     PollFdsTest();
     TimeToolTest();
-    TerminalTest();
+    //TerminalTest();
     DirOperateTest();
     SystemInfoTest();
     SystemVMsgTest();
     FileOperateTest();
     PosixSemaphoreTest();
+    PosixMsgTest();
     
     return 0;
 }
