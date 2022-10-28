@@ -36,7 +36,7 @@ S32 PosixMsgRcv(PosixMqd_t Fd, S8 *Buff, S32 Size)
     return mq_receive(Fd, Buff, Size, Null);
 }
 
-PosixMqd_t PosixMsgOpen(const S8 *Name, S32 Flag, S32 Size)
+PosixMqd_t PosixMsgOpen(const S8 *Name, S32 Flag)
 {
     PosixMqAttr_t Attr;
     S8 MsqName[MSQ_NAME_SIZE + 1];
@@ -49,14 +49,7 @@ PosixMqd_t PosixMsgOpen(const S8 *Name, S32 Flag, S32 Size)
     
     snprintf(MsqName, sizeof(MsqName), "/%s", Name);
     
-    if(Size <= 0)
-        return mq_open(MsqName, Flag, 0666, Null);
-    
-    Attr.mq_flags = 0;
-    Attr.mq_maxmsg = MAX_MSQ_NUMBER;
-    Attr.mq_msgsize = Size;
-    Attr.mq_curmsgs = 0;
-    return mq_open(MsqName, Flag, 0666, &Attr);
+    return mq_open(MsqName, Flag, 0666, Null);
 }
 
 S32 PosixMsgSnd(PosixMqd_t Fd, const S8 *Buff, S32 Size)
@@ -84,7 +77,7 @@ static Void *PollMqueueFun(Void *Arg)
     S8 Buff[20] = {0};
     struct pollfd Fds[1];
     
-    Fd = PosixMsgOpen(MsgName, O_RDONLY ,20);
+    Fd = PosixMsgOpen(MsgName, O_RDONLY);
     if(Fd < 0)
     {
         printf("PosixMsgOpen %s fail:%d\n", MsgName, Fd);
@@ -137,7 +130,7 @@ S32 PosixMsgTest(Void)
     PosixMqd_t Fd;
     pthread_t Id; 
     
-    Fd = PosixMsgOpen(MsgName, O_WRONLY | O_CREAT, 20);
+    Fd = PosixMsgOpen(MsgName, O_WRONLY | O_CREAT);
     if(Fd < 0)
     {
         printf("PosixMsgOpen %s fail!\n", MsgName);

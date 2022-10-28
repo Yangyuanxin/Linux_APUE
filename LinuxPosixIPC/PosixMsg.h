@@ -26,7 +26,7 @@ typedef struct mq_attr PosixMqAttr_t ;
 S32 PosixMsgClose(PosixMqd_t Fd);
 S32 PosixMsqUnlink(const S8 *Name);
 S32 PosixMsgRcv(PosixMqd_t Fd, S8 *Buff, S32 Size);
-PosixMqd_t PosixMsgOpen(const S8 *Name, S32 Flag, S32 Size);
+PosixMqd_t PosixMsgOpen(const S8 *Name, S32 Flag);
 S32 PosixMsgSnd(PosixMqd_t Fd, const S8 *Buff, S32 Size);
 PosixMqd_t PosixMsgSetAttr(PosixMqd_t Fd, PosixMqAttr_t *Attr);
 PosixMqd_t PosixMsgGetAttr(PosixMqd_t Fd, PosixMqAttr_t *Attr);
