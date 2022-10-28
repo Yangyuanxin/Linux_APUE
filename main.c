@@ -1,4 +1,5 @@
 #include "TCP.h"
+#include "Pipe.h"
 #include "Mutex.h"
 #include "Timer.h"
 #include "Signal.h"
@@ -6,6 +7,7 @@
 #include "PollFds.h"
 #include "RunExec.h"
 #include "Terminal.h"
+#include "PollFds.h"
 #include "PosixMsg.h"
 #include "PosixShm.h"
 #include "TimeTool.h"
@@ -19,6 +21,7 @@ int main(int argc, char **argv)
 {
     printf("Hello LinuxAPUE\n");
     TCPTest();
+    PipeTest();
     MutexTest();
     TimerTest();
     SignalTest();

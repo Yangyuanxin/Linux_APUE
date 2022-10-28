@@ -17,7 +17,7 @@ extern "C" {
 #endif
 #include "SystemConfig.h"
 
-
+S32 MkFifo(const S8 *Path, S32 Mode);
 
 #ifdef TEST_OPEN
 S32 PipeTest(Void);

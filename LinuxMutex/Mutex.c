@@ -11,7 +11,6 @@
 ****************************************************************************/
 #include "Mutex.h"
 
-
 Void *MutexCreate(Void)
 {
     Mutex_t *Mutex = (Mutex_t *)malloc(sizeof(Mutex_t));

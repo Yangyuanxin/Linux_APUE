@@ -10,6 +10,7 @@ include_directories(${APUE_ROOT}/LinuxInotify)
 include_directories(${APUE_ROOT}/LinuxIO)
 include_directories(${APUE_ROOT}/LinuxMemoryMap)
 include_directories(${APUE_ROOT}/LinuxPoll)
+include_directories(${APUE_ROOT}/LinuxPipe)
 include_directories(${APUE_ROOT}/LinuxPosixIPC)
 include_directories(${APUE_ROOT}/LinuxProcess)
 include_directories(${APUE_ROOT}/LinuxSharedLibrary)
@@ -32,6 +33,7 @@ aux_source_directory(${APUE_ROOT}/LinuxInotify          LinuxInotify)
 aux_source_directory(${APUE_ROOT}/LinuxIO               LinuxIO)
 aux_source_directory(${APUE_ROOT}/LinuxMemoryMap        LinuxMemoryMap)
 aux_source_directory(${APUE_ROOT}/LinuxPoll             LinuxPoll)
+aux_source_directory(${APUE_ROOT}/LinuxPipe             LinuxPipe)
 aux_source_directory(${APUE_ROOT}/LinuxPosixIPC         LinuxPosixIPC)
 aux_source_directory(${APUE_ROOT}/LinuxProcess          LinuxProcess)
 aux_source_directory(${APUE_ROOT}/LinuxSharedLibrary    LinuxSharedLibrary)
@@ -53,7 +55,8 @@ set(APUE_SRC
     ${LinuxInotify} 
     ${LinuxIO} 
     ${LinuxMemoryMap} 
-    ${LinuxPoll} 
+    ${LinuxPoll}
+    ${LinuxPipe}
     ${LinuxPosixIPC} 
     ${LinuxProcess} 
     ${LinuxSharedLibrary} 
