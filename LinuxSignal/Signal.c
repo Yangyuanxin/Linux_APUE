@@ -18,6 +18,17 @@ S32 Signal(S32 SigNum, Void(*Fun)(S32))
     return 0;
 }
 
+Void SignalIgnore(Void)
+{
+    /*忽略Linux程序产生Broken pipe*/
+    /*该接口应于APP运行前调用*/
+    sigset_t Set;
+    
+    sigemptyset(&Set);
+    sigaddset(&Set, SIGPIPE);
+    sigprocmask(SIG_BLOCK, &Set, Null);
+}
+
 #ifdef TEST_OPEN
 S32 Flag = 0;
 Void SiganlCallBack(S32 Sig)

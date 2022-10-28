@@ -33,6 +33,43 @@ S32 RunExec(S8 *Cmd)
     return -1;
 }
 
+S32 RunCommond(const S8 *Cmd, S8 *Result) 
+{
+    S32 Len = 0;
+    S32 Ret = 0;
+    S8 *P = Result;
+    FILE *File = Null;
+    S8 Buf[1024] = {0};
+    
+    if(Null == Cmd || Null == Result)
+    {
+        printf("Cmd or Result is Null!\n");
+        goto ErrorHandler;
+    }
+
+    File = popen(Cmd, "r");
+    if(Null == File) 
+    {
+        printf("popen error!\n");
+        goto ErrorHandler;
+    }
+
+    while(fgets(Buf, sizeof(Buf) - 1, File) != 0)
+    {
+        Len = strlen(Buf); 
+        strncpy(P, Buf, Len);
+        P += Len;
+    }
+    
+    pclose(File);
+    File = Null;
+    
+    return 0;
+
+ErrorHandler:
+    return Ret;
+}
+
 S32 SystemFork(const S8* Cmd)
 {
     pid_t  ChildPid;

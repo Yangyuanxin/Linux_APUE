@@ -19,6 +19,7 @@ extern "C" {
 
 S32 RunExec(S8 *Cmd);
 S32 SystemFork(const S8* Cmd);
+S32 RunCommond(const S8 *Cmd, S8 *Result);
 
 #ifdef TEST_OPEN
 S32 RunExecTest(Void);

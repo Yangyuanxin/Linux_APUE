@@ -17,6 +17,7 @@ extern "C" {
 #endif
 #include "SystemConfig.h"
 
+Void SignalIgnore(Void);
 S32 Signal(S32 SigNum, Void(*Fun)(S32));
 
 #ifdef TEST_OPEN
