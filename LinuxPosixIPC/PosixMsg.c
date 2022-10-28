@@ -38,7 +38,6 @@ S32 PosixMsgRcv(PosixMqd_t Fd, S8 *Buff, S32 Size)
 
 PosixMqd_t PosixMsgOpen(const S8 *Name, S32 Flag)
 {
-    PosixMqAttr_t Attr;
     S8 MsqName[MSQ_NAME_SIZE + 1];
     
     if(Null == Name)
