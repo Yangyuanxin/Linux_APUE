@@ -16,13 +16,19 @@ S32 MkFifo(const S8 *Path, S32 Mode)
 {
     if(-1 == access(Path, F_OK))
     {
-        printf("FIFO Exist!\n");
-        return -1;
+        printf(".fifofile No Exist!\n");
+        if (-1 == mkfifo(Path, Mode))
+        {
+            printf(".fifofile Create Fail\n");
+            return -1;
+        }else
+        {
+            printf(".fifofile Create Success\n");
+            return 0;  
+        }
     }
-    
-    return mkfifo(Path, Mode);
+    return 0;
 }
-
 
 #ifdef TEST_OPEN
 
@@ -30,7 +36,7 @@ S32 MkFifo(const S8 *Path, S32 Mode)
 #include "PollFds.h"
 #include "FileOperate.h"
 #define STR  "POLLTEST"
-#define FIFO_FILE "./fifofile"
+#define FIFO_FILE "./Test.fifofile"
 
 static Void *ThreadCallBack1(Void *Arg)
 {
