@@ -16,6 +16,7 @@
 #include "SystemVMsg.h"
 #include "FileOperate.h"
 #include "PosixSemaphore.h"
+#include "MemoryMap.h"
 
 int main(int argc, char **argv)
 {
@@ -36,6 +37,7 @@ int main(int argc, char **argv)
     FileOperateTest();
     PosixSemaphoreTest();
     PosixMsgTest();
-    
+    MemoryMapTest();
+
     return 0;
 }
