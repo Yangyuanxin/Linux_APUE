@@ -30,7 +30,6 @@ S32 MkFifo(const S8 *Path, S32 Mode)
     return 0;
 }
 
-
 #ifdef TEST_OPEN
 
 #include "Thread.h"
