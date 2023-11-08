@@ -80,17 +80,28 @@ S32 PosixSemaphoreWait(Void *Sem, U32 TimeoutMs)
 }
 
 #ifdef TEST_OPEN
+static uint8_t SemCnt = 0;
 PosixSemaphore_t *Sem = Null;
 
 static Void *FunCall1(Void *Arg)
 {
     (Void)Arg;
-    if(0 != PosixSemaphorePost(Sem))
+    for(;;)
     {
-        printf("SemaphorePost failed!\n");
-        return Null;
+        if(0 != PosixSemaphorePost(Sem))
+        {
+            printf("SemaphorePost failed!\n");
+            return Null;
+        }
+        SemCnt++;
+        if(SemCnt >= 10)
+        {
+            printf("FunCall1 Finish!\n");
+            break;
+        }
+        printf("SemaphorePost success!\n");
+        sleep(1);
     }
-    printf("SemaphorePost success!\n");
     return Null;
 }
 
@@ -106,7 +117,11 @@ static Void *FunCall2(Void *Arg)
         if(0 == Status)
         {
             printf("Reciver Sem ok!!!\n");
-            break;
+            if(SemCnt >= 10)
+            {
+                printf("FunCall2 Finish!\n");
+                break;
+            }
         }
     }
     return Null;
@@ -123,12 +138,11 @@ S32 PosixSemaphoreTest(Void)
         printf("SemaphoreCreate failed!\n");
         return -1;
     }
+    
     pthread_create(&Id2, Null, FunCall2, Null);
-    sleep(2);
     pthread_create(&Id1, Null, FunCall1, Null);
     pthread_join(Id1, Null);
     pthread_join(Id2, Null);
-    
     Ret = PosixSemaphoreDestroy(Sem);
     if(Ret != 0)
     {

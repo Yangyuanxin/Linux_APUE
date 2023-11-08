@@ -12,9 +12,7 @@
 #include "MemoryMap.h"
 
 #ifdef TEST_OPEN
-
 #include "Thread.h"
-
 static Void *ThreadCallBack1(Void *Arg)
 {
     char str[] = "Hello world!";
