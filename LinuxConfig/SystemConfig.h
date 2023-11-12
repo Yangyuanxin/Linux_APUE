@@ -43,6 +43,7 @@ extern "C" {
 #include <arpa/inet.h>
 #include <sys/socket.h>
 #include <sys/sysinfo.h>
+#include <sys/inotify.h>
 #include <linux/serial.h>
 #include <linux/i2c-dev.h>
 #endif
