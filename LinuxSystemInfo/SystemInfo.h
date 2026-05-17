@@ -8,6 +8,7 @@
   Mode History:
           <author>        <time>      <version>   <desc>
           Yangyuanxin    2022-8-15     V1.0.0.0
+          Yangyuanxin    2024-01-01    V1.0.0.1   跨平台兼容性改造
 ****************************************************************************/
 #ifndef _SYSTEMINFO_H_
 #define _SYSTEMINFO_H_
@@ -18,12 +19,17 @@ extern "C" {
 #include "DirOperate.h"
 #include "SystemConfig.h"
 
+#ifdef __linux__
+#include <sys/sysinfo.h>
 typedef struct sysinfo SystemInfo_t;
+#elif __APPLE__
+#include <sys/sysctl.h>
+typedef struct sysinfo SystemInfo_t;  /* 占位, macOS 不使用 */
+#endif
 
 S64 GetSystemRunTime(Void);
 S32 GetMemSize(U64 *Total, U64 *Free);
 S32 GetDiskInfo(const S8 *Path, Double *Available, Double *Total);
-
 
 #ifdef TEST_OPEN
 S32 SystemInfoTest(Void);
@@ -33,4 +39,3 @@ S32 SystemInfoTest(Void);
 }
 #endif
 #endif  //ifndef _SYSTEMINFO_H_
-/****************************************************************************/

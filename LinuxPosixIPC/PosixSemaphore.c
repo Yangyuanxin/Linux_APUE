@@ -49,8 +49,6 @@ S32 PosixSemaphorePost(Void *Sem)
 
 S32 PosixSemaphoreWait(Void *Sem, U32 TimeoutMs)
 {
-    S32 S;
-    struct timespec Ts;
     if(0 == TimeoutMs) 
     {
         sem_wait(Sem);
@@ -58,6 +56,9 @@ S32 PosixSemaphoreWait(Void *Sem, U32 TimeoutMs)
     } 
     else 
     {
+#ifdef __linux__
+        S32 S;
+        struct timespec Ts;
         do 
         {
             if(clock_gettime(CLOCK_REALTIME, &Ts) == -1) 
@@ -76,6 +77,19 @@ S32 PosixSemaphoreWait(Void *Sem, U32 TimeoutMs)
         } while (((S = sem_timedwait(Sem, &Ts)) != 0) && errno == EINTR);
 
         return S ? -1 : 0;
+#else
+        /* macOS 没有 sem_timedwait, 使用简单的轮询替代 */
+        U32 Elapsed = 0;
+        U32 CheckIntervalMs = 10;
+        while(Elapsed < TimeoutMs)
+        {
+            if(sem_trywait(Sem) == 0)
+                return 0;
+            usleep(CheckIntervalMs * 1000);
+            Elapsed += CheckIntervalMs;
+        }
+        return -1;
+#endif
     }
 }
 

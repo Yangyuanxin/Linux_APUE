@@ -31,6 +31,12 @@ S32 StatFs(const S8 *Path, DirFs_t *Attr)
     return statfs(Path, Attr);
 }
 
+/* statvfs 是跨平台的替代方案 */
+S32 StatVfs(const S8 *Path, struct statvfs *Attr)
+{
+    return statvfs(Path, Attr);
+}
+
 Bool IsDirExist(const S8 *Path)
 {
     Dir_t *CurDir = NULL;

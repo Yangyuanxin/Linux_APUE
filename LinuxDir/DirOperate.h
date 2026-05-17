@@ -17,14 +17,23 @@ extern "C" {
 #endif
 #include "SystemConfig.h"
 
+#ifdef __linux__
+#include <sys/vfs.h>
+#elif __APPLE__
+#include <sys/mount.h>
+#endif
+#include <sys/statvfs.h>
+
 typedef DIR Dir_t;
 typedef struct statfs DirFs_t;
+typedef struct statvfs DirVfs_t;
 typedef struct dirent DirGet_t;
 
 Dir_t *OpenDir(const S8 *Name);
 S32 CloseDir(Dir_t *Dirp);
 DirGet_t *ReadDir(Dir_t *Dirp);
 S32 StatFs(const S8 *Path, DirFs_t *Attr);
+S32 StatVfs(const S8 *Path, DirVfs_t *Attr);
 Bool IsDirExist(const S8 *Path);
 
 #ifdef TEST_OPEN

@@ -8,6 +8,7 @@
   Mode History:
           <author>        <time>      <version>   <desc>
           Yangyuanxin    2022-9-2      V1.0.0.0
+          Yangyuanxin    2024-01-01    V1.0.0.1   补全共享内存接口
 ****************************************************************************/
 #ifndef _SYSTEM_V_SHARE_MEM_H_
 #define _SYSTEM_V_SHARE_MEM_H_
@@ -21,6 +22,8 @@ typedef key_t SystemVShareMemKey_t;
 
 S32 SystemVShareMemOpen(SystemVShareMemKey_t Key, S32 MemSize);
 S32 SystemVShareMemClose(S32 Fd);
+Void *SystemVShareMemAttach(S32 Fd);
+S32 SystemVShareMemDetach(const Void *Addr);
 
 #ifdef TEST_OPEN
 S32 SystemVShareMemTest(Void);
@@ -30,4 +33,3 @@ S32 SystemVShareMemTest(Void);
 }
 #endif
 #endif  //ifndef _SYSTEM_V_SHARE_MEM_H_
-/****************************************************************************/
